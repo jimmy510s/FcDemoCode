@@ -1,22 +1,21 @@
-package com.example.fieldcodedemoapp.screen.postlist
+package com.example.fieldcodedemoapp.screen.postDetails
 
 import com.example.fieldcodedemoapp.data.model.Post
 
 
-interface PostListScreenContract {
+interface PostDetailsContract {
 
     // View
     interface View {
         fun showLoading()
         fun hideLoading()
-        fun getPosts(posts: ArrayList<Post>)
+        fun setData(post: Post)
         fun handleError(msg:String?)
     }
 
     // Presenter
     interface Presenter {
-        fun getPosts()
+        fun uploadChanges()
         fun detach()
-        fun updatePost(post:Post)
     }
 }

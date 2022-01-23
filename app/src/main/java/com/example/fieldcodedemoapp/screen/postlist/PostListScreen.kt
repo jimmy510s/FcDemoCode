@@ -10,11 +10,11 @@ import com.example.fieldcodedemoapp.data.model.Post
 import com.example.fieldcodedemoapp.screen.base.BaseToolbarScreen
 import com.example.fieldcodedemoapp.screen.postDetails.PostDetailsScreen
 
-class PostListScreen : BaseToolbarScreen(), PostListScreenContract.View {
+class PostListScreen : BaseToolbarScreen(), PostListContract.View {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var refreshLayout: SwipeRefreshLayout
-    private lateinit var presenter: PostListScreenPresenter
+    private lateinit var presenter: PostListPresenter
     private lateinit var adapter: PostListAdapter
 
     override fun getLayoutId(): Int {
@@ -28,7 +28,7 @@ class PostListScreen : BaseToolbarScreen(), PostListScreenContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = PostListScreenPresenter(this)
+        presenter = PostListPresenter(this)
 
         recyclerView = findViewById(R.id.recyclerview)
         refreshLayout = findViewById(R.id.swipeRefreshLayout)
@@ -47,14 +47,11 @@ class PostListScreen : BaseToolbarScreen(), PostListScreenContract.View {
         recyclerView.adapter = adapter
 
         adapter.onItemClick = {post ->
-            startActivity(Intent(this,PostDetailsScreen::class.java))
+            presenter.onItemClick(post)
         }
 
         adapter.onFavClick ={ pos ->
-
-            presenter.dataList[pos].isFav = !presenter.dataList[pos].isFav
-            presenter.updatePost(presenter.dataList[pos])
-            adapter.notifyDataSetChanged()
+            presenter.onFavClick(pos)
         }
 
         refreshLayout.setOnRefreshListener {
@@ -73,6 +70,16 @@ class PostListScreen : BaseToolbarScreen(), PostListScreenContract.View {
 
     override fun hideLoading() {
         refreshLayout.isRefreshing = false
+    }
+
+    override fun goToDetailsScreen(post: Post) {
+        startActivity(Intent(this,PostDetailsScreen::class.java))
+    }
+
+    override fun updateFav(pos: Int) {
+        presenter.dataList[pos].isFav = !presenter.dataList[pos].isFav
+        presenter.updatePost(presenter.dataList[pos])
+        adapter.notifyDataSetChanged()
     }
 
     override fun getPosts(posts: ArrayList<Post>) {

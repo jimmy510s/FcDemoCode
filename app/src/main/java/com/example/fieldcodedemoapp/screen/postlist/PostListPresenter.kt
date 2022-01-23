@@ -5,7 +5,7 @@ import com.example.fieldcodedemoapp.data.model.Post
 import com.example.fieldcodedemoapp.network.ServiceListener
 import com.example.fieldcodedemoapp.network.services.PostService
 
-class PostListScreenPresenter(var view: PostListScreenContract.View?):PostListScreenContract.Presenter {
+class PostListPresenter(var view: PostListContract.View?):PostListContract.Presenter {
 
     var dataList = ArrayList<Post>()
     var dbHelper = DbHelper()
@@ -49,6 +49,14 @@ class PostListScreenPresenter(var view: PostListScreenContract.View?):PostListSc
                 }
             }
         })
+    }
+
+    override fun onItemClick(post: Post) {
+        view?.goToDetailsScreen(post)
+    }
+
+    override fun onFavClick(pos: Int) {
+        view?.updateFav(pos)
     }
 
     override fun detach() {
