@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FieldCodeDemoApp</string>
+    <string name="no_internet_error">No interner connection. Please try again</string>
+    <string name="general_error">Oops.. An error has occurred. Please try again</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+</resources>

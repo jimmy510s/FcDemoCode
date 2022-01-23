@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginStart="@dimen/spacing_big"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:layout_marginEnd="@dimen/spacing_big"
+    android:layout_marginBottom="@dimen/spacing_small"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/spacing"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/post_id_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_normal" />
+
+            <TextView
+                android:id="@+id/post_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/spacing"
+                android:layout_marginEnd="@dimen/spacing"
+                android:layout_toStartOf="@+id/post_fav_iv"
+                android:layout_toEndOf="@+id/post_id_tv"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/post_fav_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_not_fav" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/post_body_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
