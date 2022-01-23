@@ -73,7 +73,9 @@ class PostListScreen : BaseToolbarScreen(), PostListContract.View {
     }
 
     override fun goToDetailsScreen(post: Post) {
-        startActivity(Intent(this,PostDetailsScreen::class.java))
+        val intent = Intent(this,PostDetailsScreen::class.java)
+        intent.putExtra(PostDetailsScreen.EXTRA_POST,post)
+        startActivity(intent)
     }
 
     override fun updateFav(pos: Int) {

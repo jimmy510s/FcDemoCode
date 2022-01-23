@@ -12,4 +12,4 @@ data class Post(
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "body") val body: String?,
     @ColumnInfo(name = "isFav") var isFav: Boolean = false
-)
+) : Serializable

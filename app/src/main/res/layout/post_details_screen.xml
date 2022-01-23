@@ -26,6 +26,7 @@
             android:layout_marginTop="@dimen/spacing" />
 
         <Button
+            android:id="@+id/ok_action"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

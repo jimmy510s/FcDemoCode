@@ -17,5 +17,6 @@ interface PostDetailsContract {
     interface Presenter {
         fun uploadChanges()
         fun detach()
+        fun getData(post: Post)
     }
 }

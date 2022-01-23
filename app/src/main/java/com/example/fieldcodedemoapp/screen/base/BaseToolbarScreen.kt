@@ -1,20 +1,19 @@
 package com.example.fieldcodedemoapp.screen.base
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.example.fieldcodedemoapp.R
-import com.example.fieldcodedemoapp.screen.base.BaseScreen
 
 abstract class BaseToolbarScreen : BaseScreen() {
 
     protected abstract fun hasBackButton(): Boolean
+    protected abstract fun elementDeclaration()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setUpToolbar()
+        elementDeclaration()
     }
 
     private fun setUpToolbar() {

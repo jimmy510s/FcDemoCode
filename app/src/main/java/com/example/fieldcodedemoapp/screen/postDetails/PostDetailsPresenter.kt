@@ -1,9 +1,6 @@
 package com.example.fieldcodedemoapp.screen.postDetails
 
-import com.example.fieldcodedemoapp.data.db.DbHelper
 import com.example.fieldcodedemoapp.data.model.Post
-import com.example.fieldcodedemoapp.network.ServiceListener
-import com.example.fieldcodedemoapp.network.services.PostService
 
 class PostDetailsPresenter(var view: PostDetailsContract.View?):PostDetailsContract.Presenter {
 
@@ -14,6 +11,10 @@ class PostDetailsPresenter(var view: PostDetailsContract.View?):PostDetailsContr
     }
 
     override fun detach() {
+        view = null
+    }
 
+    override fun getData(post: Post) {
+        mPost = post
     }
 }
