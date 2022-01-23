@@ -1,7 +1,9 @@
 package com.example.fieldcodedemoapp.screen.base
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import com.example.fieldcodedemoapp.R
 
 abstract class BaseToolbarScreen : BaseScreen() {
@@ -25,6 +27,16 @@ abstract class BaseToolbarScreen : BaseScreen() {
 
             if(hasBackButton())
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        if (hasBackButton()){
+            onBackPressed()
+            return true
+        }else{
+            return super.onOptionsItemSelected(item)
         }
     }
 }
