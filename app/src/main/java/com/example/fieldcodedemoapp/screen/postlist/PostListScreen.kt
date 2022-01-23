@@ -25,13 +25,15 @@ class PostListScreen : BaseToolbarScreen(), PostListContract.View {
         return false
     }
 
+    override fun elementDeclaration() {
+        recyclerView = findViewById(R.id.recyclerview)
+        refreshLayout = findViewById(R.id.swipeRefreshLayout)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         presenter = PostListPresenter(this)
-
-        recyclerView = findViewById(R.id.recyclerview)
-        refreshLayout = findViewById(R.id.swipeRefreshLayout)
 
         setTitle(R.string.app_name)
 
@@ -88,8 +90,13 @@ class PostListScreen : BaseToolbarScreen(), PostListContract.View {
         adapter.notifyDataSetChanged()
     }
 
-    override fun handleError(msg: String?) {
-        handleServerError(msg)
+    override fun handleServerError(msg: String?) {
+
+        var errorMsg = getString(R.string.general_error)
+        if(!msg.isNullOrBlank())
+            errorMsg = msg
+
+        showNotificationDialog(errorMsg, msg, null, false)
     }
 
     override fun onDestroy() {

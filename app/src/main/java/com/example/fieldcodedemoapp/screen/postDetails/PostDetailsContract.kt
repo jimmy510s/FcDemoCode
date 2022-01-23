@@ -10,13 +10,16 @@ interface PostDetailsContract {
         fun showLoading()
         fun hideLoading()
         fun setData(post: Post)
-        fun handleError(msg:String?)
+        fun showBodyError()
+        fun handleServerError(msg:String?)
+        fun postUpdatedSuccessFully()
+        fun goBack()
     }
 
     // Presenter
     interface Presenter {
-        fun uploadChanges()
         fun detach()
-        fun getData(post: Post)
+        fun setData(post: Post)
+        fun onOkClick(body:String)
     }
 }

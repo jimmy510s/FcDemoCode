@@ -12,7 +12,7 @@ interface PostListContract {
         fun goToDetailsScreen(post: Post)
         fun updateFav(pos:Int)
         fun getPosts(posts: ArrayList<Post>)
-        fun handleError(msg:String?)
+        fun handleServerError(msg:String?)
     }
 
     // Presenter

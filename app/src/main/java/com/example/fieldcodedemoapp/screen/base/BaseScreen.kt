@@ -34,12 +34,7 @@ abstract class BaseScreen : AppCompatActivity() {
         mLdDialog?.dismiss()
     }
 
-    fun handleServerError(errorMessage: String?) {
-
-        showNotificationDialog(R.string.app_name, getString(R.string.general_error), null, false)
-    }
-
-    fun showNotificationDialog(title: Int, message: String?, clickListener: DialogInterface.OnClickListener?, cancelable: Boolean) {
+    fun showNotificationDialog(title: String, message: String?, clickListener: DialogInterface.OnClickListener?, cancelable: Boolean) {
 
         if (!isFinishing) {
             val builder = AlertDialog.Builder(this)

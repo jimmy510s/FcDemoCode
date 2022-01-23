@@ -1,9 +1,11 @@
 package com.example.fieldcodedemoapp.screen.postDetails
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.fieldcodedemoapp.R
 import com.example.fieldcodedemoapp.data.model.Post
 import com.example.fieldcodedemoapp.screen.base.BaseToolbarScreen
@@ -25,7 +27,7 @@ class PostDetailsScreen: BaseToolbarScreen(), PostDetailsContract.View {
         super.onCreate(savedInstanceState)
 
         presenter = PostDetailsPresenter(this)
-        presenter.getData(intent.extras?.get(EXTRA_POST) as Post)
+        presenter.setData(intent.extras?.get(EXTRA_POST) as Post)
 
         btnAction.setOnClickListener(clickListener)
     }
@@ -36,12 +38,12 @@ class PostDetailsScreen: BaseToolbarScreen(), PostDetailsContract.View {
 
     override fun elementDeclaration() {
         edtTitle = findViewById(R.id.post_title_edt)
-        edtBody = findViewById(R.id.post_body_tv)
+        edtBody = findViewById(R.id.post_body_edt)
         btnAction = findViewById(R.id.ok_action)
     }
 
     private val clickListener = View.OnClickListener {
-
+        presenter.onOkClick(edtBody.text.toString())
     }
 
     override fun getLayoutId(): Int {
@@ -61,7 +63,24 @@ class PostDetailsScreen: BaseToolbarScreen(), PostDetailsContract.View {
         edtBody.setText(post.body)
     }
 
-    override fun handleError(msg: String?) {
-        handleServerError(errorMessage = null)
+    override fun showBodyError() {
+        edtBody.backgroundTintList = ColorStateList.valueOf(getColor(R.color.red))
+    }
+
+    override fun handleServerError(msg: String?) {
+
+        var errorMsg = getString(R.string.general_error)
+        if(!msg.isNullOrBlank())
+            errorMsg = msg
+
+        showNotificationDialog(errorMsg, msg, null, false)
+    }
+
+    override fun postUpdatedSuccessFully() {
+        Toast.makeText(this,R.string.update_post_success,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun goBack() {
+        onBackPressed()
     }
 }

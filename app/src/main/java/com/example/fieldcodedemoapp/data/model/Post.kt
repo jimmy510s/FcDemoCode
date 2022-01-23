@@ -10,6 +10,6 @@ import java.util.*
 data class Post(
     @PrimaryKey val id: Long,
     @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "body") val body: String?,
+    @ColumnInfo(name = "body") var body: String?,
     @ColumnInfo(name = "isFav") var isFav: Boolean = false
 ) : Serializable

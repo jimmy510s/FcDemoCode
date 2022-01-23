@@ -2,6 +2,7 @@ package com.example.fieldcodedemoapp.screen.postlist
 
 import com.example.fieldcodedemoapp.data.db.DbHelper
 import com.example.fieldcodedemoapp.data.model.Post
+import com.example.fieldcodedemoapp.network.NetworkManager
 import com.example.fieldcodedemoapp.network.ServiceListener
 import com.example.fieldcodedemoapp.network.services.PostService
 
@@ -30,7 +31,7 @@ class PostListPresenter(var view: PostListContract.View?):PostListContract.Prese
 
             override fun onServerCallFailed(errorMessage: String?, errorCode: Int) {
 
-                if(errorCode == PostService.NETWORK_ERROR){
+                if(errorCode == NetworkManager.NETWORK_ERROR){
 
                     val dbPosts = dbHelper.getPostsFromDb()
                     if(dbPosts.size > 0){
@@ -40,12 +41,12 @@ class PostListPresenter(var view: PostListContract.View?):PostListContract.Prese
                         view?.getPosts(dataList)
                     }else{
                         view?.hideLoading()
-                        view?.handleError(errorMessage)
+                        view?.handleServerError(errorMessage)
                     }
                 }else{
 
                     view?.hideLoading()
-                    view?.handleError(errorMessage)
+                    view?.handleServerError(errorMessage)
                 }
             }
         })
