@@ -13,8 +13,15 @@ class PostListPresenter(var view: PostListContract.View?):PostListContract.Prese
 
     override fun getPosts() {
 
+        //show the loading first
         view?.showLoading()
 
+        //get the data from the db
+        dataList.clear()
+        dataList.addAll(dbHelper.getPostsFromDb())
+        view?.getPosts()
+
+        //get the data from server, update on db and display the updated data
         PostService.getPosts(object: ServiceListener<ArrayList<Post>>{
 
             override fun onServerCallSucceeded(result: ArrayList<Post>) {
@@ -26,31 +33,20 @@ class PostListPresenter(var view: PostListContract.View?):PostListContract.Prese
 
                 dataList.clear()
                 dataList.addAll(result)
-                view?.getPosts(dataList)
+                view?.getPosts()
             }
 
             override fun onServerCallFailed(errorMessage: String?, errorCode: Int) {
 
-                if(errorCode == NetworkManager.NETWORK_ERROR){
-
-                    val dbPosts = dbHelper.getPostsFromDb()
-                    if(dbPosts.size > 0){
-                        dataList.clear()
-                        dataList.addAll(dbPosts)
-                        view?.hideLoading()
-                        view?.getPosts(dataList)
-                    }else{
-                        view?.hideLoading()
-                        view?.handleServerError(errorMessage)
-                    }
-                }else{
-
-                    view?.hideLoading()
+                //if we get an error but we have local data do nothing. we can add bussiness here comparing last update time
+                //and show user a snackbar or something etc
+                view?.hideLoading()
+                if(dataList.isEmpty())
                     view?.handleServerError(errorMessage)
-                }
             }
         })
     }
+
 
     override fun onItemClick(post: Post) {
         view?.goToDetailsScreen(post)

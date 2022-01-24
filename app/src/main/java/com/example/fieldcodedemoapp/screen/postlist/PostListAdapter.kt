@@ -1,6 +1,5 @@
 package com.example.fieldcodedemoapp.screen.postlist
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fieldcodedemoapp.R
 import com.example.fieldcodedemoapp.data.model.Post
 
-class PostListAdapter(private val dataSet: List<Post>, private val context: Context) : RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
+class PostListAdapter(private val dataSet: List<Post>) : RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
 
     var onItemClick: ((Post) -> Unit)? = null
     var onFavClick: ((Int) -> Unit)? = null
@@ -27,7 +26,7 @@ class PostListAdapter(private val dataSet: List<Post>, private val context: Cont
         viewHolder.tvPostBody.text = dataSet[position].body
         viewHolder.tvPostTitle.text = dataSet[position].title
 
-        if(dataSet[position].isFav != null && dataSet[position].isFav!!)
+        if(dataSet[position].isFav)
             viewHolder.ivFav.setImageResource(R.drawable.ic_fav)
         else
             viewHolder.ivFav.setImageResource(R.drawable.ic_not_fav)

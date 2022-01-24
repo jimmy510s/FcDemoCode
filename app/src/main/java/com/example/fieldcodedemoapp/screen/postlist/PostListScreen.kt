@@ -45,7 +45,7 @@ class PostListScreen : BaseToolbarScreen(), PostListContract.View {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
 
-        adapter = PostListAdapter(presenter.dataList,this)
+        adapter = PostListAdapter(presenter.dataList)
         recyclerView.adapter = adapter
 
         adapter.onItemClick = {post ->
@@ -86,7 +86,7 @@ class PostListScreen : BaseToolbarScreen(), PostListContract.View {
         adapter.notifyDataSetChanged()
     }
 
-    override fun getPosts(posts: ArrayList<Post>) {
+    override fun getPosts() {
         adapter.notifyDataSetChanged()
     }
 

@@ -11,7 +11,7 @@ interface PostListContract {
         fun hideLoading()
         fun goToDetailsScreen(post: Post)
         fun updateFav(pos:Int)
-        fun getPosts(posts: ArrayList<Post>)
+        fun getPosts()
         fun handleServerError(msg:String?)
     }
 
