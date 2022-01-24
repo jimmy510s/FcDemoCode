@@ -1,19 +1,32 @@
 package com.example.fieldcodedemoapp
 
+import android.content.Context
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import com.example.fieldcodedemoapp.data.db.AppDatabase
 import com.example.fieldcodedemoapp.data.db.DbHelper
 import com.example.fieldcodedemoapp.data.model.Post
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.robolectric.RobolectricTestRunner
 
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 class SimpleEntityReadWriteTest {
+
 
     @Test
     fun writePostsAndRetrieveThem() {
+
+        val appContext = ApplicationProvider.getApplicationContext<Context>()
+        val db = Room.databaseBuilder(appContext, AppDatabase::class.java,"fieldcodedb").fallbackToDestructiveMigration()
+            .build()
 
         val listToWrite = ArrayList<Post>()
         val post1 = Post(1L,"TestTitle1","TestBody1",false)
@@ -23,12 +36,13 @@ class SimpleEntityReadWriteTest {
         listToWrite.add(post2)
         listToWrite.add(post3)
 
-        val dbHelper = DbHelper()
+
+        val dbHelper = TestDbHelper()
         for(post in listToWrite){
-            dbHelper.savePostToDb(post)
+            dbHelper.savePostToDb(post,db.postDao())
         }
 
-        for((index,post) in dbHelper.getPostsFromDb().withIndex()){
+        for((index,post) in dbHelper.getPostsFromDb(db.postDao()).withIndex()){
 
             assertThat(post.id, equalTo(listToWrite[index].id))
             assertThat(post.title, equalTo(listToWrite[index].title))
